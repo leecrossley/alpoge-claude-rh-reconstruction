@@ -110,7 +110,7 @@ Section 14 describes the external checks on the upstream export and the independ
 | [Prefix digest and size](./verification/prefix-receipt.json) · [arithmetic declaration indices](./verification/arithmetic-prefix-receipt.json) | An unmodified prefix of 1,539,032,259 bytes and 140,192 raw declaration records, including `rh_of_every`, `poleData`, `landau_window`, `ch_core`, `ch_top` and `core_gm`. |
 | [Nanoda log](./verification/nanoda-prefix.log) · [ConLeche log](./verification/con-leche-prefix.log) | Nanoda 0.4.17 checked 145,327 internal declarations. ConLeche accepted 140,188 declarations and completed 137,728 deferred checks. |
 | [WindowBridge.lean](./verification/WindowBridge.lean) | The logarithmic exceptional-set window lemma, with $`J=4(2C/\eta)^R`$. |
-| [CriticalLineBridge.lean](./verification/CriticalLineBridge.lean) | The choice of exponents and the passage from arbitrarily late arithmetic windows to zero exclusion to the right of $`\operatorname{Re}s=1/2`$, under the stated analytic input. |
+| [CriticalLineBridge.lean](./verification/CriticalLineBridge.lean) | The proof chooses the exponents and uses arbitrarily late arithmetic windows and the stated analytic input to exclude zeros to the right of $`\Re(s)=1/2`$. |
 | [Case I and II proof-value paths](./verification/zeta-count-trace.zip) | Original serialized expressions and direct references in 24 pinned compiled modules for the two generic deformation counts. |
 | [TranslateMean.lean](./verification/TranslateMean.lean) | Finite-group character projection and uniform error averaging used in Proposition 10.4. |
 

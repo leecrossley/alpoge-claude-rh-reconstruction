@@ -2,7 +2,7 @@
 
 Independent paper reconstruction and audit of the Alpöge–Claude argument for Dirichlet $`L`$-functions. Revised 22 November 2026, 329 pages.
 
-[Read the paper (PDF)](./Arithmetic-reconstruction-after-review.pdf) · [Download the repository (ZIP)](https://github.com/Sidler4Hare/alpoge-claude-rh-reconstruction/archive/refs/heads/main.zip) · [LaTeX source](./main.tex) · [Proof status by theorem and page](./audit/paper-proof-status.tsv)
+[Read the paper (PDF)](./Arithmetic-reconstruction-after-review.pdf) | [Download this fork (ZIP)](https://github.com/leecrossley/alpoge-claude-rh-reconstruction/archive/refs/heads/main.zip) | [LaTeX source](./main.tex) | [Proof status by theorem and page](./audit/paper-proof-status.tsv) | [Upstream reconstruction](https://github.com/Sidler4Hare/alpoge-claude-rh-reconstruction/tree/7d17bb991581172cebd554c33a205b1b0f3a2fb3)
 
 Theorem 1.3 proves a **conditional critical-line theorem**. Either of two uniform arithmetic estimates on arbitrarily late windows implies the critical-line assertions for the Riemann zeta function and every Dirichlet $`L`$-function. Establishing one of the estimates on the whole arithmetic family remains open in this reconstruction, including for $`\psi=1`$. Equations (15.1) and (15.2) appear on p. 270.
 
@@ -45,6 +45,8 @@ The same choice of window and common data suffices if the uniform **signed mean*
 ```
 
 **Four primitive twists.** Proposition 10.4 computes $`2\bar D/(B\delta)`$ with an explicit remainder. Each power of $`\psi`$ contributes the primitive inducers of $`\psi^a,\ \psi^aJ_q,\ \psi^aJ_d,\ \psi^aJ_qJ_d`$ with signs $`+,+,-,-`$. Corollary 10.5 bounds the three discarded twists using Theorem 6.4. For $`\psi=1`$, the main term is $`G[1]+G[J_q]-G[J_d]-G[J_qJ_d]`$. Corollary 10.6 shows that supplying the common arithmetic hypotheses and (15.2) at the **integer squares** in each window suffices for the critical-line implication. [Section 10](./sections/arithmetic.tex)
+
+For a quadratic $`\psi`$ and a prime $`p`$ outside the conductors, the $`a=1`$ bracket has character factor $`\psi(p)(1+J_q(p))(1-J_d(p))`$. With the fixed references $`q=3`$ and $`d=7`$, it equals $`4\psi(p)`$ for $`p\equiv10,13,19\pmod{21}`$ and zero on the other reduced residue classes. Proposition 10.4 gives this bracket weight $`1/7`$. Theorem 6.4 requires $`d\equiv-1\pmod q`$, which the fixed pair fails since $`7\equiv1\pmod3`$. The signed mean in (15.2) still requires centred prime-power sums on the selected host. [Prime selection in Section 6](./sections/prime-expansion.tex)
 
 **One slope comparison.** Section 8.6 forms a direct sum over translates before composing the first operator. Each path keeps its translate label. Lemma 8.11 measures the finite denominator and archimedean norm costs, whose mean is $`\mathcal J`$. Theorem 8.12 and Corollary 8.13 compare slopes in a single normalized trace even when ranks and frame defects vary with $`u`$. The low target-slope tail contributes $`T_{\mathrm{out}}`$. [Section 8.6, pp. 124–127](./sections/translate-slopes.tex)
 
@@ -108,7 +110,7 @@ Section 14 describes the external checks on the upstream export and the independ
 | [Prefix digest and size](./verification/prefix-receipt.json) · [arithmetic declaration indices](./verification/arithmetic-prefix-receipt.json) | An unmodified prefix of 1,539,032,259 bytes and 140,192 raw declaration records, including `rh_of_every`, `poleData`, `landau_window`, `ch_core`, `ch_top` and `core_gm`. |
 | [Nanoda log](./verification/nanoda-prefix.log) · [ConLeche log](./verification/con-leche-prefix.log) | Nanoda 0.4.17 checked 145,327 internal declarations. ConLeche accepted 140,188 declarations and completed 137,728 deferred checks. |
 | [WindowBridge.lean](./verification/WindowBridge.lean) | The logarithmic exceptional-set window lemma, with $`J=4(2C/\eta)^R`$. |
-| [CriticalLineBridge.lean](./verification/CriticalLineBridge.lean) | The choice of exponents and the passage from arbitrarily late arithmetic windows to zero exclusion to the right of $`\operatorname{Re}s=1/2`$, under the stated analytic input. |
+| [CriticalLineBridge.lean](./verification/CriticalLineBridge.lean) | The proof chooses the exponents and uses arbitrarily late arithmetic windows and the stated analytic input to exclude zeros to the right of $`\Re(s)=1/2`$. |
 | [Case I and II proof-value paths](./verification/zeta-count-trace.zip) | Original serialized expressions and direct references in 24 pinned compiled modules for the two generic deformation counts. |
 | [TranslateMean.lean](./verification/TranslateMean.lean) | Finite-group character projection and uniform error averaging used in Proposition 10.4. |
 

@@ -35,7 +35,8 @@ def centre():
     uu, ww = square(u), square(w)
     numer = -vu[1] - sw[1], -vu[0] - sw[0]
     denom = uu[0] + ww[0], uu[1] + ww[1]
-    assert denom[0] > 0
+    if denom[0] <= 0:
+        raise ArithmeticError("The lower bound on the squared L-value must be positive.")
     bounds = [a / b for a in numer for b in denom]
     quad = log_derivative([legendre(n, 5) for n in range(1, 6)])
     gamma = euler_constant()
@@ -58,7 +59,8 @@ def weights(p):
 
 def verify_curve(left, right, k, center_hi, knots, name):
     kq = int(k*Q)
-    assert kq == k*Q and kq % 4 == 0
+    if kq != k*Q or kq % 4:
+        raise ValueError("The coefficient times Q must be an integer divisible by four.")
     tl = th = mh = 0
     tested = []
 
@@ -68,7 +70,8 @@ def verify_curve(left, right, k, center_hi, knots, name):
         sqrt_hi = isqrt(b*Q) + 1
         upper = mh + center_hi - log_lo - tl*Q//b - kq*Q//sqrt_hi
         tested.append((upper, label))
-        assert upper < 0, (label, Decimal(upper)/Q)
+        if upper >= 0:
+            raise ArithmeticError(f"{name} has upper bound {Decimal(upper)/Q} at {label}.")
 
     crossings = 0
     quarter = kq//4
@@ -91,7 +94,8 @@ def verify_curve(left, right, k, center_hi, knots, name):
         if zl <= b*Q and zh >= a*Q:
             test(max(a*Q, zl), min(b*Q, zh), f"gap [{n},{b}]")
             crossings += 1
-    assert len(tested) == crossings + 2
+    if len(tested) != crossings + 2:
+        raise ArithmeticError("The upper bound must cover both endpoints and every stationary candidate.")
     upper, where = max(tested)
     print(f"{name}: {len(knots)} knots <= {right}, {crossings} stationary candidates and two endpoints.")
     print(f"sup(({name}(x)-({k})*sqrt(x))/x) <= {Decimal(upper)/Q} ({where}).")
@@ -99,7 +103,8 @@ def verify_curve(left, right, k, center_hi, knots, name):
 
 def main():
     left, right = 10_000, 1_000_000
-    assert left**3 == right**2
+    if left**3 != right**2:
+        raise ValueError("The right endpoint must equal the left endpoint to the power 3/2.")
     primes = sorted(n for n, p in prime_powers(right).items() if n == p)
     cl, ch = centre()
     bl = bh = 0

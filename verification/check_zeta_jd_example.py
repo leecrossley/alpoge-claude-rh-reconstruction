@@ -25,10 +25,12 @@ def reduced_ideal_cycles(discriminant):
         quotient = (root + b) // (2 * a)
         next_b = 2 * a * quotient - b
         next_a, remainder = divmod(discriminant - next_b * next_b, 4 * a)
-        assert remainder == 0
+        if remainder:
+            raise ArithmeticError(f"The successor of {ideal} has a nonintegral coefficient.")
         return next_a, next_b
 
-    assert {successor(ideal) for ideal in ideals} == ideals
+    if {successor(ideal) for ideal in ideals} != ideals:
+        raise ArithmeticError("Reduction must permute the reduced ideals.")
     remaining = set(ideals)
     cycles = []
     while remaining:
@@ -39,27 +41,36 @@ def reduced_ideal_cycles(discriminant):
             remaining.remove(ideal)
             length += 1
             ideal = successor(ideal)
-        assert ideal == start
+        if ideal != start:
+            raise ArithmeticError(f"The cycle starting at {start} ended at {ideal}.")
         cycles.append((start, length))
     return len(ideals), cycles
 
 
 if __name__ == "__main__":
     q, d, t, e = 43, 325079, 10, 3
-    assert prime(q) and prime(d) and d != 3
-    assert q % 8 == 3 and d % 16 == 7
-    assert all((d + 1) % p == 0 for p in (3, 5, 7, q))
-    assert d + 1 == 2**3 * 3**3 * 5 * 7 * q
-    assert 2 * t + 1 < min(q, d) and 3 <= e < t and e % 2 == 1
+    if not (prime(q) and prime(d) and d != 3):
+        raise ValueError("The example requires primes q and d with d distinct from 3.")
+    if q % 8 != 3 or d % 16 != 7:
+        raise ValueError("The prime residues must be q = 3 modulo 8 and d = 7 modulo 16.")
+    if any((d + 1) % p for p in (3, 5, 7, q)):
+        raise ValueError("Each of 3, 5, 7 and q must divide d + 1.")
+    if d + 1 != 2**3 * 3**3 * 5 * 7 * q:
+        raise ArithmeticError("The factorisation of d + 1 differs from the example.")
+    if not (2 * t + 1 < min(q, d) and 3 <= e < t and e % 2 == 1):
+        raise ValueError("The small-prime cutoff and odd exponent must satisfy the host bounds.")
     discriminant = 3 * d
     count, cycles = reduced_ideal_cycles(discriminant)
-    assert count == 332
-    assert cycles == [((1, 987), 96), ((7, 975), 118), ((7, 985), 118)]
+    if count != 332:
+        raise ArithmeticError(f"Expected 332 reduced ideals, found {count}.")
+    if cycles != [((1, 987), 96), ((7, 975), 118), ((7, 985), 118)]:
+        raise ArithmeticError(f"The reduced ideal cycles differ from the example: {cycles}")
     print(f"D = {discriminant}, reduced ideals = {count}")
     for start, length in cycles:
         print(f"cycle starting at {start}, length = {length}")
     print(f"ordinary class number = {len(cycles)}")
     host_modulus = 16 * q * d
     test_level = (max(192 * host_modulus, 1728) - 1).bit_length()
-    assert test_level == 36 and 2 ** (test_level - 1) < 192 * host_modulus <= 2**test_level
+    if test_level != 36 or not (2 ** (test_level - 1) < 192 * host_modulus <= 2**test_level):
+        raise ArithmeticError(f"The host modulus falls outside the expected dyadic level 36 (found {test_level}).")
     print(f"normalized length = 1; Case II level at dyadic layer two = {test_level}")

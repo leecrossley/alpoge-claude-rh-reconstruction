@@ -155,6 +155,8 @@ python verify_paths.py full evidence/rh-walk-summary.json
 python report_five.py full evidence/five.tsv
 ~~~
 
+The three numerical certificates accept ordinary and optimised Python. The archived binder and dependency-graph checkers use assertions and stop when Python optimisation is enabled. Run those checkers with `python -E` to ignore the `PYTHONOPTIMIZE` environment variable.
+
 The file `verification/hOnto-proof-slice.zip` contains the term slice and its checker. Extract it and run `python verify.py` in that directory. Passing `--export` followed by the original compressed export also compares the records against their original bytes. The local binder result is in [binder.log](binder.log).
 
 Build the article with `tectonic main.tex` from the directory containing its main source. The build reads the section files and needs no Lean installation.

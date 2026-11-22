@@ -2,7 +2,7 @@
 
 Independent paper reconstruction and audit of the Alpöge–Claude argument for Dirichlet $`L`$-functions. Revised 22 November 2026, 329 pages.
 
-[Read the paper (PDF)](./Arithmetic-reconstruction-after-review.pdf) · [Download the repository (ZIP)](https://github.com/Sidler4Hare/alpoge-claude-rh-reconstruction/archive/refs/heads/main.zip) · [LaTeX source](./main.tex) · [Proof status by theorem and page](./audit/paper-proof-status.tsv)
+[Read the paper (PDF)](./Arithmetic-reconstruction-after-review.pdf) | [Download this fork (ZIP)](https://github.com/leecrossley/alpoge-claude-rh-reconstruction/archive/refs/heads/main.zip) | [LaTeX source](./main.tex) | [Proof status by theorem and page](./audit/paper-proof-status.tsv) | [Upstream reconstruction](https://github.com/Sidler4Hare/alpoge-claude-rh-reconstruction/tree/7d17bb991581172cebd554c33a205b1b0f3a2fb3)
 
 Theorem 1.3 proves a **conditional critical-line theorem**. Either of two uniform arithmetic estimates on arbitrarily late windows implies the critical-line assertions for the Riemann zeta function and every Dirichlet $`L`$-function. Establishing one of the estimates on the whole arithmetic family remains open in this reconstruction, including for $`\psi=1`$. Equations (15.1) and (15.2) appear on p. 270.
 
@@ -45,6 +45,8 @@ The same choice of window and common data suffices if the uniform **signed mean*
 ```
 
 **Four primitive twists.** Proposition 10.4 computes $`2\bar D/(B\delta)`$ with an explicit remainder. Each power of $`\psi`$ contributes the primitive inducers of $`\psi^a,\ \psi^aJ_q,\ \psi^aJ_d,\ \psi^aJ_qJ_d`$ with signs $`+,+,-,-`$. Corollary 10.5 bounds the three discarded twists using Theorem 6.4. For $`\psi=1`$, the main term is $`G[1]+G[J_q]-G[J_d]-G[J_qJ_d]`$. Corollary 10.6 shows that supplying the common arithmetic hypotheses and (15.2) at the **integer squares** in each window suffices for the critical-line implication. [Section 10](./sections/arithmetic.tex)
+
+For a quadratic $`\psi`$ and a prime $`p`$ outside the conductors, the $`a=1`$ bracket has character factor $`\psi(p)(1+J_q(p))(1-J_d(p))`$. With the fixed references $`q=3`$ and $`d=7`$, it equals $`4\psi(p)`$ for $`p\equiv10,13,19\pmod{21}`$ and zero on the other reduced residue classes. Proposition 10.4 gives this bracket weight $`1/7`$. Theorem 6.4 requires $`d\equiv-1\pmod q`$, which the fixed pair fails since $`7\equiv1\pmod3`$. The signed mean in (15.2) still requires centred prime-power sums on the selected host. [Prime selection in Section 6](./sections/prime-expansion.tex)
 
 **One slope comparison.** Section 8.6 forms a direct sum over translates before composing the first operator. Each path keeps its translate label. Lemma 8.11 measures the finite denominator and archimedean norm costs, whose mean is $`\mathcal J`$. Theorem 8.12 and Corollary 8.13 compare slopes in a single normalized trace even when ranks and frame defects vary with $`u`$. The low target-slope tail contributes $`T_{\mathrm{out}}`$. [Section 8.6, pp. 124–127](./sections/translate-slopes.tex)
 

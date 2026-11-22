@@ -43,7 +43,8 @@ def period_sums(period):
     """Enclose sums of a(n)/n and a(n)log(n)/n for a zero-mean signed period."""
     q = len(period)
     prefix = list(accumulate(period))
-    assert prefix[-1] == 0
+    if not prefix or prefix[-1] != 0:
+        raise ValueError("The signed period must be nonempty and have sum zero.")
     mean = Fraction(sum(prefix), q)
     discrepancy = max(abs(v) for v in accumulate(a - mean for a in prefix))
     m = ceil_div(100_000, q) * q
@@ -78,7 +79,8 @@ def period_sums(period):
 def log_derivative(period):
     """Enclose L'(1)/L(1) for the real, nonprincipal periodic character."""
     l, f = period_sums(period)
-    assert l[0] > 0
+    if l[0] <= 0:
+        raise ArithmeticError("The lower bound for L(1) must be positive.")
     ratios = [-v / w for v in f for w in l]
     return floor(Q * min(ratios)), ceil(Q * max(ratios))
 
@@ -138,7 +140,8 @@ def verify_ramp(name, bases, fourth_powers, center, coefficient, *, absolute_cha
             max_upper = max(max_upper, max(left_upper, knot_upper) + curvature)
             gaps += 1
         previous = x, root, knot_upper
-    assert sample_lower is not None and sample_lower[0] <= max_upper
+    if sample_lower is None or sample_lower[0] > max_upper:
+        raise ArithmeticError(f"The lower witness for {name} is missing or exceeds the upper bound.")
     print(f"{name}: {gaps} adjacent intervals, bounds on the supremum of the normalized ramp")
     print(f"  [{Decimal(sample_lower[0]) / RATIO_SCALE}, "
           f"{Decimal(max_upper) / RATIO_SCALE}], lower witness x={sample_lower[1]}")
@@ -151,7 +154,8 @@ def main():
     gamma = euler_constant()
     center = (Q + gamma[0], Q + gamma[1])
     zeta_upper = verify_ramp("zeta", bases, knots, center, lambda _: 1)
-    assert 1000 * zeta_upper < 35 * RATIO_SCALE
+    if 1000 * zeta_upper >= 35 * RATIO_SCALE:
+        raise ArithmeticError("The zeta upper bound must be strictly below 35/1000.")
     q, d = 3, 23
     lq = log_derivative([legendre(n, q) for n in range(1, q + 1)])
     ld = log_derivative([legendre(n, d) for n in range(1, d + 1)])
@@ -172,7 +176,8 @@ def main():
         return (1 + legendre(n, q)) * (1 - legendre(n, d))
 
     four_upper = verify_ramp("four twists (3,23)", bases, knots, four_center, selected)
-    assert 100 * four_upper < 107 * RATIO_SCALE
+    if 100 * four_upper >= 107 * RATIO_SCALE:
+        raise ArithmeticError("The four-twist upper bound must be strictly below 107/100.")
 
 
 if __name__ == "__main__":
